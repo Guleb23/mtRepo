@@ -6,7 +6,7 @@ import CustomBtn from '../CustomBtn'
 
 const PersonalData = () => {
     return (
-        <div className='flex flex-col gap-5'>
+        <div className='flex flex-col gap-5 pb-36'>
             <CustomHeader title={`Персональные данные`} />
             <div className='flex flex-col gap-4'>
                 <h2 className='font-medium'>

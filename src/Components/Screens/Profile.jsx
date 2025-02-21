@@ -36,7 +36,7 @@ const Profile = () => {
 
     ]
     return (
-        <section className='flex flex-col gap-5'>
+        <section className='flex flex-col gap-5 pb-36'>
             <CustomHeader title={`Профиль`} />
             <div className='flex flex-col gap-4 '>
                 <h2 className='font-medium'>

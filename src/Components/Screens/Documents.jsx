@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 const Documents = () => {
     return (
-        <section className='flex flex-col gap-5'>
+        <section className='flex flex-col gap-5 pb-36'>
             <CustomHeader title={`Документы`} />
             <div className='flex flex-col gap-4 '>
                 <div className='flex'>
