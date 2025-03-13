@@ -3,8 +3,7 @@ import React from 'react'
 const CompanyDocuments = () => {
     return (
         <div>
-            CompanyDocuments
-            CompanyDocuments
+            Тут будут документы от менеджера
         </div>
     )
 }
