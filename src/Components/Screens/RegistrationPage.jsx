@@ -42,7 +42,7 @@ const RegistrationPage = () => {
                 })
                 .catch((err) => {
                     if (err.status == "409") {
-                        alert(err.response.data);
+                        alert("Пользователь с таким номером уже зарегистрирован");
                     }
                 })
         }
