@@ -4,12 +4,14 @@ import PhoneInput from '../PhoneInput'
 import CustomBtn from '../CustomBtn'
 import axsios from '../../api/axsios'
 import useAuth from '../../Hooks/useAuth'
+import { useNavigate } from 'react-router-dom'
 const LOGIN_URL = '/login';
 
 const LoginPage = () => {
     const { setAuth } = useAuth();
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const [token, setToken] = useState("");
 
@@ -66,6 +68,7 @@ const LoginPage = () => {
                 });
                 localStorage.setItem("token", response.data.token)
                 localStorage.setItem("id", response.data.id)
+                navigate("/profile");
             })
             .catch((error) => {
                 console.error("Error:", error, " ", phone);
