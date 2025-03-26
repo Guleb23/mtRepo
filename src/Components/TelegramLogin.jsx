@@ -4,9 +4,9 @@ const TelegramLogin = () => {
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://telegram.org/js/telegram-widget.js?7';
-        script.setAttribute('data-telegram-login', 'YOUR_BOT_USERNAME'); // Имя бота
+        script.setAttribute('data-telegram-login', 'esgiktelegramm_bot'); // Имя бота
         script.setAttribute('data-size', 'large');
-        script.setAttribute('data-auth-url', 'https://your-backend.com/auth/telegram');
+        script.setAttribute('data-auth-url', 'https://guleb23-webapplication2-c213.twc1.net/auth/telegram');
         script.setAttribute('data-request-access', 'write');
         script.async = true;
 
