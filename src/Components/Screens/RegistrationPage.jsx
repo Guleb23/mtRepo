@@ -4,6 +4,7 @@ import CustomBtn from '../CustomBtn'
 import PhoneInput from '../PhoneInput'
 import axsios from '../../api/axsios';
 import { useNavigate } from 'react-router-dom';
+import TelegramLogin from '../TelegramLogin';
 
 
 const RegistrationPage = () => {
@@ -54,7 +55,7 @@ const RegistrationPage = () => {
             <div className='flex flex-1 items-end lg:items-start lg:flex-none '>
 
                 <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
-
+                <TelegramLogin />
             </div>
         </>
     )
