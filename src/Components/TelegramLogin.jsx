@@ -1,6 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const TelegramLogin = () => {
+    const [userData, setUserData] = useState(null);
+
     useEffect(() => {
         const script = document.createElement('script');
         script.src = 'https://telegram.org/js/telegram-widget.js?7';
@@ -17,7 +20,23 @@ const TelegramLogin = () => {
         };
     }, []);
 
-    return <div id="telegram-login-button"></div>;
+
+
+    return (
+        <div>
+            <div id="telegram-login-button"></div>
+            {userData && (
+                <div>
+                    <h2>Добро пожаловать, {userData.firstName}!</h2>
+                    <p>ID: {userData.id}</p>
+                    <p>Username: {userData.username}</p>
+                    {userData.photoUrl && (
+                        <img src={userData.photoUrl} alt="User Avatar" width="100" />
+                    )}
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default TelegramLogin;
