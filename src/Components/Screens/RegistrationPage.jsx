@@ -6,15 +6,27 @@ import { useNavigate } from 'react-router-dom';
 import TelegramLogin from '../TelegramLogin';
 
 const RegistrationPage = () => {
-    const [userData, setUserData] = useState(null);
+    const navigation = useNavigate();
+    const [userData, setUserData] = useState(null);  // <-- сюда передаем данные из Telegram
+
+    const [user, setUser] = useState({
+        firstName: "",
+        lastName: "",
+        phone: "",
+        email: "",
+        password: ""
+    });
 
     const sendDataToBackend = async (user) => {
         try {
             const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram", user);
-            response.data.
-                console.log("✅ Успешная авторизация:", response.data);
+            setUser({
+                firstName: userData.firstName
+            })
+            localStorage.setItem("token", response.data.token)
+
         } catch (error) {
-            console.error("❌ Ошибка при отправке данных:", error);
+            console.error("Ошибка при отправке данных:", error);
         }
     };
 
