@@ -9,7 +9,7 @@ import TelegramLogin from '../TelegramLogin';
 
 const RegistrationPage = () => {
     const navigation = useNavigate();
-
+    const [userData, setUserData] = useState();
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
@@ -24,9 +24,8 @@ const RegistrationPage = () => {
     const [data, setData] = useState({});
 
 
-
     const handleClick = async () => {
-        if (user.phone.length < 10) {
+        /*if (user.phone.length < 10) {
             alert("Uncorrect phone")
         } else {
             await axsios.post("/createUser", user)
@@ -46,7 +45,8 @@ const RegistrationPage = () => {
                         alert("Пользователь с таким номером уже зарегистрирован");
                     }
                 })
-        }
+        }*/
+        console.log(userData);
 
     }
     return (
@@ -55,7 +55,8 @@ const RegistrationPage = () => {
             <div className='flex flex-1 items-end lg:items-start lg:flex-none '>
 
                 <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
-                <TelegramLogin />
+
+                <TelegramLogin setUserData={setUserData} />
 
             </div>
         </>

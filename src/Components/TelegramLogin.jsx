@@ -12,41 +12,9 @@ const TelegramLogin = () => {
         script.setAttribute("data-request-access", "write");
         script.async = true;
 
-        // Обработчик для получения данных после успешной авторизации
-        window.telegramLoginCallback = async (authData) => {
-            console.log("Auth Data:", authData);
 
-            try {
-                // Отправляем авторизационные данные на сервер
-                const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram/contact", authData);
-                setUserData(response.data);
 
-                // Отправляем сообщение с запросом на номер телефона
-                const botToken = "7593576707:AAFfwzMnHc6eUpyrZVrWhJokJg_NdK4LcQs";  // Ваш токен бота
-                const messageData = {
-                    chat_id: authData.id,
-                    text: "👋 Пожалуйста, отправьте ваш номер телефона для завершения авторизации:",
-                    reply_markup: {
-                        keyboard: [
-                            [
-                                {
-                                    text: "📱 Отправить номер телефона",
-                                    request_contact: true
-                                }
-                            ]
-                        ],
-                        resize_keyboard: true,
-                        one_time_keyboard: true
-                    }
-                };
-
-                // Отправляем запрос на API Telegram для отправки сообщения
-                const telegramResponse = await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, messageData);
-                console.log("Сообщение с запросом на номер телефона отправлено!", telegramResponse);
-            } catch (error) {
-                console.error("Ошибка при отправке данных или сообщения:", error);
-            }
-        };
+        console.log(userData);
 
         const loginContainer = document.getElementById("telegram-login-button");
         if (loginContainer) {
