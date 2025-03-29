@@ -63,7 +63,7 @@ const RegistrationPage = () => {
 
             </div>
             <TelegramLoginButton
-                botName="@esgiktelegramm_bot"
+                botName="esgiktelegramm_bot"
                 dataOnauth={handleTelegramResponse}
                 buttonSize="large"
             />
