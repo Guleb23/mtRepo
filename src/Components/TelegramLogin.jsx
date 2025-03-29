@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 
-const TelegramLogin = ({ setUserData }) => {
+const TelegramLogin = ({ onAuth }) => {
     useEffect(() => {
         const script = document.createElement("script");
         script.src = "https://telegram.org/js/telegram-widget.js?7";
-        script.setAttribute("data-telegram-login", "esgiktelegramm_bot");
+        script.setAttribute("data-telegram-login", "esgiktelegramm_bot"); // Укажите имя вашего бота
         script.setAttribute("data-size", "large");
         script.setAttribute("data-request-access", "write");
         script.async = true;
@@ -12,8 +12,8 @@ const TelegramLogin = ({ setUserData }) => {
         script.onload = () => {
             if (window.Telegram && window.Telegram.Login) {
                 window.Telegram.Login.auth = (user) => {
-                    console.log("Пользователь авторизован через Telegram:", user);
-                    setUserData(user);  // <-- Передаем данные в RegistrationPage
+                    console.log("✅ Авторизация прошла успешно!", user);
+                    onAuth(user);  // Передаем данные в родительский компонент
                 };
             }
         };
