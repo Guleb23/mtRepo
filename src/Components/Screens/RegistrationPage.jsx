@@ -1,53 +1,37 @@
-import React, { useState } from 'react'
-
-import CustomBtn from '../CustomBtn'
-import PhoneInput from '../PhoneInput'
-import axsios from '../../api/axsios';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useEffect, useState } from "react";
+import axios from "../../api/axsios";
+import { useNavigate } from "react-router-dom";
+import TelegramLogin from "../TelegramLogin";
 
 const RegistrationPage = () => {
     const navigation = useNavigate();
+    const [userData, setUserData] = useState(null);
+    const [user, setUser] = useState({});
 
-    const [user, setUser] = useState({
-        firstName: "",
-        lastName: "",
-        phone: "",
-        email: "",
-        password: "",
-        paymentMethodId: 1,
-        getDocsSposobId: 1,
-
-    });
-
-    const [data, setData] = useState({});
-
-
-
-    const handleClick = async () => {
-        if (user.phone.length < 10) {
-            alert("Uncorrect phone")
-        } else {
-            await axsios.post("/createUser", user)
-                .then((resp) => {
-                    if (resp.status == "200") {
-                        console.log(resp.data);
-                        const data = {
-                            pass: resp.data.password,
-                            tel: resp.data.phone
-                        };
-                        console.log(data);
-                        navigation("/confirm", { state: { data } });
-                    }
-                })
-                .catch((err) => {
-                    if (err.status == "409") {
-                        alert("Пользователь с таким номером уже зарегистрирован");
-                    }
-                })
+    // Когда userData обновляется, запускаем sendDataToBackend
+    useEffect(() => {
+        if (userData) {
+            sendDataToBackend(userData);
         }
+    }, [userData]); // <-- следим за userData
 
-    }
+    const sendDataToBackend = async (user) => {
+        try {
+            const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram", user);
+            setUser({ firstName: user.first_name });
+            localStorage.setItem("token", response.data.token);
+            console.log("✅ Данные успешно отправлены:", response.data);
+        } catch (error) {
+            console.error("❌ Ошибка при отправке данных:", error);
+        }
+    };
+
+    // Когда Telegram авторизует пользователя, обновляем userData
+    const handleTelegramAuth = (user) => {
+        console.log("🔹 Получены данные из Telegram:", user);
+        setUserData(user);
+    };
+
     return (
         <>
             <PhoneInput phone={user.phone} handleChange={(e) => { setUser({ ...user, phone: e.target.value }) }} phoneValue={user.Phone} inpId={`userPhone`} name={`Введите свой номер телефона`} />
