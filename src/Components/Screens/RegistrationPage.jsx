@@ -5,6 +5,7 @@ import PhoneInput from '../PhoneInput'
 import axsios from '../../api/axsios';
 import { useNavigate } from 'react-router-dom';
 import TelegramLoginButton from 'react-telegram-login';
+import axios from 'axios';
 
 
 
