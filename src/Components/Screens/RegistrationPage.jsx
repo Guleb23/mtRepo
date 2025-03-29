@@ -12,7 +12,7 @@ const RegistrationPage = () => {
     const navigation = useNavigate();
     const handleTelegramResponse = (response) => {
         console.log(response); // Данные пользователя
-        // Отправляем на сервер для проверки
+        sendDataToBackend();
     };
 
     const [user, setUser] = useState({
@@ -27,6 +27,16 @@ const RegistrationPage = () => {
     });
 
     const [data, setData] = useState({});
+    const sendDataToBackend = async () => {
+        try {
+            const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram", user);
+            setUser({ firstName: user.first_name });
+            localStorage.setItem("token", response.data.token);
+            console.log("✅ Данные успешно отправлены:", response.data);
+        } catch (error) {
+            console.error("❌ Ошибка при отправке данных:", error);
+        }
+    };
 
 
 
@@ -62,11 +72,14 @@ const RegistrationPage = () => {
                 <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
 
             </div>
-            <TelegramLoginButton
-                botName="esgiktelegramm_bot"
-                dataOnauth={handleTelegramResponse}
-                buttonSize="large"
-            />
+            <div className='w-full'>
+                <TelegramLoginButton
+                    botName="esgiktelegramm_bot"
+                    dataOnauth={handleTelegramResponse}
+                    buttonSize="large"
+                />
+            </div>
+
         </>
     )
 }
