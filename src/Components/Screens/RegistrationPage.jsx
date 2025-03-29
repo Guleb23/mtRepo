@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CustomBtn from '../CustomBtn';
 import PhoneInput from '../PhoneInput';
 import axios from '../../api/axsios';
@@ -8,13 +8,13 @@ import TelegramLogin from '../TelegramLogin';
 const RegistrationPage = () => {
     const navigation = useNavigate();
     const [userData, setUserData] = useState(null);  // <-- сюда передаем данные из Telegram
-
+    useEffect(() => {
+        if (user) {
+            sendDataToBackend(user);
+        }
+    }, [])
     const [user, setUser] = useState({
-        firstName: "",
-        lastName: "",
-        phone: "",
-        email: "",
-        password: ""
+
     });
 
     const sendDataToBackend = async (user) => {
@@ -33,7 +33,6 @@ const RegistrationPage = () => {
     // Отправляем данные на сервер, как только они получены от Telegram
     const handleTelegramAuth = (user) => {
         setUserData(user);
-        sendDataToBackend(user);
     };
 
     return (
