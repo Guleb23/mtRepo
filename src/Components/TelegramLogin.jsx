@@ -9,7 +9,7 @@ const TelegramLogin = () => {
         script.src = "https://telegram.org/js/telegram-widget.js?7";
         script.setAttribute("data-telegram-login", "esgiktelegramm_bot");
         script.setAttribute("data-size", "large");
-        script.setAttribute("data-auth-url", "https://guleb23-webapplication2-c213.twc1.net/auth/telegram");
+        script.setAttribute("data-auth-url", "https://guleb23-webapplication2-a40c.twc1.net/auth/telegram");
         script.setAttribute("data-request-access", "write");
         script.async = true;
 
@@ -24,7 +24,7 @@ const TelegramLogin = () => {
         window.Telegram.WebApp.requestContact({
             success: (contact) => {
                 console.log("Phone:", contact.phone_number);
-                axios.post("https://guleb23-webapplication2-c213.twc1.net/auth/telegram/phone", {
+                axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram/phone", {
                     phone: contact.phone_number,
                     userId: userData?.id
                 });
