@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const axsios = axios.create({
 
-    baseURL: 'https://guleb23-webapplication2-c213.twc1.net/api/'
+    baseURL: 'https://guleb23-webapplication2-a40c.twc1.net/api/'
 })
 
 
