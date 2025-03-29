@@ -30,10 +30,31 @@ const TelegramLogin = () => {
         console.log("Auth Data:", authData);
 
         try {
+            // Отправляем авторизационные данные на сервер
             const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram", authData);
-            setUserData(response.data); // Сохраняем данные пользователя
+            setUserData(response.data);
+
+            // Отправляем сообщение с запросом на номер телефона
+            await axios.post(`https://api.telegram.org/bot7593576707:AAFfwzMnHc6eUpyrZVrWhJokJg_NdK4LcQs/sendMessage`, {
+                chat_id: authData.id,
+                text: "👋 Пожалуйста, отправьте ваш номер телефона для завершения авторизации:",
+                reply_markup: {
+                    keyboard: [
+                        [
+                            {
+                                text: "📱 Отправить номер телефона",
+                                request_contact: true
+                            }
+                        ]
+                    ],
+                    resize_keyboard: true,
+                    one_time_keyboard: true
+                }
+            });
+
+            console.log("Сообщение с запросом на номер телефона отправлено!");
         } catch (error) {
-            console.error("Ошибка при отправке данных на сервер:", error);
+            console.error("Ошибка при отправке данных или сообщения:", error);
         }
     };
 
