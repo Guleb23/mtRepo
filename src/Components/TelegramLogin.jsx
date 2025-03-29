@@ -10,6 +10,7 @@ const TelegramLogin = () => {
         script.setAttribute("data-telegram-login", "esgiktelegramm_bot"); // Заменить на имя своего бота
         script.setAttribute("data-size", "large");
         script.setAttribute("data-request-access", "write");
+
         script.async = true;
 
         // Обработчик для получения данных после успешной авторизации
