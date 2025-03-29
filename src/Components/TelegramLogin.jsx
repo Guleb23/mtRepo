@@ -24,7 +24,9 @@ const TelegramLogin = () => {
             }
         };
     }, []);
-
+    useEffect(() => {
+        handleTelegramAuth(userData);
+    }, [])
     // Функция для обработки данных после входа через Telegram
     const handleTelegramAuth = async (authData) => {
         console.log("Auth Data:", authData);
