@@ -53,7 +53,6 @@ const RegistrationPage = () => {
         <>
             <PhoneInput phone={user.phone} handleChange={(e) => { setUser({ ...user, phone: e.target.value }) }} phoneValue={user.Phone} inpId={`userPhone`} name={`Введите свой номер телефона`} />
             <div className='flex flex-1 items-end lg:items-start lg:flex-none '>
-
                 <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
                 <TelegramLogin />
             </div>
