@@ -4,10 +4,16 @@ import CustomBtn from '../CustomBtn'
 import PhoneInput from '../PhoneInput'
 import axsios from '../../api/axsios';
 import { useNavigate } from 'react-router-dom';
+import TelegramLoginButton from 'react-telegram-login';
+
 
 
 const RegistrationPage = () => {
     const navigation = useNavigate();
+    const handleTelegramResponse = (response) => {
+        console.log(response); // Данные пользователя
+        // Отправляем на сервер для проверки
+    };
 
     const [user, setUser] = useState({
         firstName: "",
@@ -56,6 +62,11 @@ const RegistrationPage = () => {
                 <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
 
             </div>
+            <TelegramLoginButton
+                botName="@esgiktelegramm_bot"
+                dataOnauth={handleTelegramResponse}
+                buttonSize="large"
+            />
         </>
     )
 }
