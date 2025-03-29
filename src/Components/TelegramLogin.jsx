@@ -9,9 +9,41 @@ const TelegramLogin = () => {
         script.src = "https://telegram.org/js/telegram-widget.js?7";
         script.setAttribute("data-telegram-login", "esgiktelegramm_bot"); // Заменить на имя своего бота
         script.setAttribute("data-size", "large");
-        script.setAttribute("data-auth-url", "https://guleb23-webapplication2-a40c.twc1.net/auth/telegram");
         script.setAttribute("data-request-access", "write");
         script.async = true;
+
+        // Обработчик для получения данных после успешной авторизации
+        window.telegramLoginCallback = async (authData) => {
+            console.log("Auth Data:", authData);
+
+            try {
+                // Отправляем авторизационные данные на сервер
+                const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram/contact", authData);
+                setUserData(response.data);
+
+                // Отправляем сообщение с запросом на номер телефона
+                await axios.post(`https://api.telegram.org/bot7593576707:AAFfwzMnHc6eUpyrZVrWhJokJg_NdK4LcQs/sendMessage`, {
+                    chat_id: authData.id,
+                    text: "👋 Пожалуйста, отправьте ваш номер телефона для завершения авторизации:",
+                    reply_markup: {
+                        keyboard: [
+                            [
+                                {
+                                    text: "📱 Отправить номер телефона",
+                                    request_contact: true
+                                }
+                            ]
+                        ],
+                        resize_keyboard: true,
+                        one_time_keyboard: true
+                    }
+                });
+
+                console.log("Сообщение с запросом на номер телефона отправлено!");
+            } catch (error) {
+                console.error("Ошибка при отправке данных или сообщения:", error);
+            }
+        };
 
         const loginContainer = document.getElementById("telegram-login-button");
         if (loginContainer) {
@@ -24,41 +56,6 @@ const TelegramLogin = () => {
             }
         };
     }, []);
-    useEffect(() => {
-        handleTelegramAuth(userData);
-    }, [])
-    // Функция для обработки данных после входа через Telegram
-    const handleTelegramAuth = async (authData) => {
-        console.log("Auth Data:", authData);
-
-        try {
-            // Отправляем авторизационные данные на сервер
-            const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram/contact", authData);
-            setUserData(response.data);
-
-            // Отправляем сообщение с запросом на номер телефона
-            await axios.post(`https://api.telegram.org/bot7593576707:AAFfwzMnHc6eUpyrZVrWhJokJg_NdK4LcQs/sendMessage`, {
-                chat_id: authData.id,
-                text: "👋 Пожалуйста, отправьте ваш номер телефона для завершения авторизации:",
-                reply_markup: {
-                    keyboard: [
-                        [
-                            {
-                                text: "📱 Отправить номер телефона",
-                                request_contact: true
-                            }
-                        ]
-                    ],
-                    resize_keyboard: true,
-                    one_time_keyboard: true
-                }
-            });
-
-            console.log("Сообщение с запросом на номер телефона отправлено!");
-        } catch (error) {
-            console.error("Ошибка при отправке данных или сообщения:", error);
-        }
-    };
 
     return (
         <div>
