@@ -31,7 +31,7 @@ const TelegramLogin = () => {
 
         try {
             // Отправляем авторизационные данные на сервер
-            const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram", authData);
+            const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram/contact", authData);
             setUserData(response.data);
 
             // Отправляем сообщение с запросом на номер телефона
