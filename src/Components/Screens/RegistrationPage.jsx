@@ -30,7 +30,7 @@ const RegistrationPage = () => {
     const [data, setData] = useState({});
     const sendDataToBackend = async (resp) => {
         try {
-            const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram", resp);
+            const response = await axios.post("https://localhost:7087/auth/telegram", resp);
             localStorage.setItem("token", response.data.token);
             console.log("✅ Данные успешно отправлены:", response.data);
         } catch (error) {
