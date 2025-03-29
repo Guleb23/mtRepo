@@ -1,60 +1,49 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const TelegramLogin = ({ setUserDate }) => {
+const TelegramLogin = () => {
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
         const script = document.createElement("script");
         script.src = "https://telegram.org/js/telegram-widget.js?7";
-        script.setAttribute("data-telegram-login", "esgiktelegramm_bot"); // Заменить на имя своего бота
+        script.setAttribute("data-telegram-login", "esgiktelegramm_bot"); // Имя бота
         script.setAttribute("data-size", "large");
         script.setAttribute("data-request-access", "write");
+        script.setAttribute("data-userpic", "true");
         script.async = true;
 
-        // Обработчик для получения данных после успешной авторизации
-        window.telegramLoginCallback = async (authData) => {
-            console.log("Auth Data:", authData);
-            try {
-
-                setUserDate(response.data);
-                setUserData(response.data);
-
-                // Отправляем сообщение с запросом на номер телефона
-                await axios.post(`https://api.telegram.org/bot7593576707:AAFfwzMnHc6eUpyrZVrWhJokJg_NdK4LcQs/sendMessage`, {
-                    chat_id: authData.id,
-                    text: "👋 Пожалуйста, отправьте ваш номер телефона для завершения авторизации:",
-                    reply_markup: {
-                        keyboard: [
-                            [
-                                {
-                                    text: "📱 Отправить номер телефона",
-                                    request_contact: true
-                                }
-                            ]
-                        ],
-                        resize_keyboard: true,
-                        one_time_keyboard: true
-                    }
-                });
-
-                console.log("Сообщение с запросом на номер телефона отправлено!");
-            } catch (error) {
-                console.error("Ошибка при отправке данных или сообщения:", error);
+        script.onload = () => {
+            if (window.Telegram && window.Telegram.Login) {
+                window.Telegram.Login.auth = (user) => {
+                    setUserData(user);
+                    sendDataToBackend(user);
+                };
             }
         };
 
-        const loginContainer = document.getElementById("telegram-login-button");
-        if (loginContainer) {
-            loginContainer.appendChild(script);
-        }
+        document.getElementById("telegram-login-button").appendChild(script);
 
         return () => {
-            if (loginContainer && script) {
-                loginContainer.removeChild(script);
-            }
+            document.getElementById("telegram-login-button").removeChild(script);
         };
     }, []);
+
+    const sendDataToBackend = async (user) => {
+        try {
+            const response = await axios.get("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram", {
+                params: {
+                    id: user.id,
+                    first_name: user.first_name,
+                    username: user.username,
+                    hash: user.hash,
+                },
+            });
+            console.log("Сервер ответил:", response.data);
+        } catch (error) {
+            console.error("Ошибка при отправке данных:", error);
+        }
+    };
 
     return (
         <div>

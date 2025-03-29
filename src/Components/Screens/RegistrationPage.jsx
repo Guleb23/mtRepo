@@ -56,7 +56,7 @@ const RegistrationPage = () => {
 
                 <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
 
-                <TelegramLogin setUserDate={setUserData} />
+                <TelegramLogin />
 
             </div>
         </>
