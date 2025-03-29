@@ -7,7 +7,7 @@ const TelegramLogin = () => {
     useEffect(() => {
         const script = document.createElement("script");
         script.src = "https://telegram.org/js/telegram-widget.js?7";
-        script.setAttribute("data-telegram-login", "esgiktelegramm_bot"); // Заменить на имя своего бота
+        script.setAttribute("data-telegram-login", "esgiktelegramm_bot"); // Замените на имя вашего бота
         script.setAttribute("data-size", "large");
         script.setAttribute("data-request-access", "write");
         script.async = true;
@@ -15,13 +15,15 @@ const TelegramLogin = () => {
         // Обработчик для получения данных после успешной авторизации
         window.telegramLoginCallback = async (authData) => {
             console.log("Auth Data:", authData);
+
             try {
                 // Отправляем авторизационные данные на сервер
                 const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram/contact", authData);
                 setUserData(response.data);
 
                 // Отправляем сообщение с запросом на номер телефона
-                await axios.post(`https://api.telegram.org/bot<7593576707:AAFfwzMnHc6eUpyrZVrWhJokJg_NdK4LcQs>/sendMessage`, {
+                const botToken = "7593576707:AAFfwzMnHc6eUpyrZVrWhJokJg_NdK4LcQs";  // Ваш токен бота
+                const messageData = {
                     chat_id: authData.id,
                     text: "👋 Пожалуйста, отправьте ваш номер телефона для завершения авторизации:",
                     reply_markup: {
@@ -36,9 +38,11 @@ const TelegramLogin = () => {
                         resize_keyboard: true,
                         one_time_keyboard: true
                     }
-                });
+                };
 
-                console.log("Сообщение с запросом на номер телефона отправлено!");
+                // Отправляем запрос на API Telegram для отправки сообщения
+                const telegramResponse = await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, messageData);
+                console.log("Сообщение с запросом на номер телефона отправлено!", telegramResponse);
             } catch (error) {
                 console.error("Ошибка при отправке данных или сообщения:", error);
             }
