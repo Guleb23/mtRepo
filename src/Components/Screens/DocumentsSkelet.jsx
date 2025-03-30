@@ -17,10 +17,10 @@ const DocumentsSkelet = () => {
                 <CustomHeader title={"Документы"} />
                 <nav className='flex gap-3'>
                     <Link to={'/documents/userDocuments'}>
-                        <CustomBtn customStyles={path == "/userDocuments" ? "!bg-[#b4b7bb]" : ""} title={"Мои документы"} />
+                        <CustomBtn customStyles={path == "/documents/userDocuments" ? "!bg-[#b4b7bb]" : ""} title={"Мои документы"} />
                     </Link>
                     <Link to={'/documents/companyDocuments'}>
-                        <CustomBtn customStyles={path == "/companyDocuments" ? "!bg-[#b4b7bb]" : ""} title={"От компании"} />
+                        <CustomBtn customStyles={path == "/documents/companyDocuments" ? "!bg-[#b4b7bb]" : ""} title={"От компании"} />
                     </Link>
 
                 </nav>

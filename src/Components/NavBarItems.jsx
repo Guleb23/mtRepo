@@ -18,7 +18,7 @@ const NavBarItems = () => {
 
         {
             title: 'Документы',
-            link: '/documents/userDocuments' || '/documents/companyDocuments',
+            link: '/documents/userDocuments',
             iconPath: '../MenuIcons/one.svg'
         },
 
