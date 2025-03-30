@@ -27,14 +27,10 @@ function App() {
         <Routes>
           <Route path='/' element={<Services />} />
           <Route path="/:id" element={<ServiceDetails />} />
-
-          <Route path='/userDocuments' element={<DocumentsSkelet>
-            <UserDocuments />
-          </DocumentsSkelet>} />
-          <Route path='/companyDocuments' element={<DocumentsSkelet>
-            <CompanyDocuments />
-          </DocumentsSkelet>} />
-
+          <Route path='/documents' element={<DocumentsSkelet />}>
+            <Route path='/userDocuments' element={<UserDocuments />} />
+            <Route path='/companyDocuments' element={<CompanyDocuments />} />
+          </Route>
 
           <Route path='/registration' element={
             <LoginRegistrSkelet>

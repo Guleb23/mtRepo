@@ -72,7 +72,7 @@ export default PersonalData
 
 const IsUser = ({ data, hundleClick, setData }) => {
     return (
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 pb-36'>
             <h2 className='font-medium'>
                 Введите  свои паспортные данные:
             </h2>
@@ -90,7 +90,7 @@ const IsUser = ({ data, hundleClick, setData }) => {
                 </div>
             </div>
             <h2 className='font-medium'>
-                Введите номер СНИЛСА:
+                Введите номер СНИЛС:
             </h2>
             <CustomInput value={data.snils} handleChange={(e) => setData({ ...data, snils: e.target.value })} inpId={`snils`} name={`Номер снилса`} />
             <h2 className='font-medium'>
