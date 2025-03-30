@@ -19,7 +19,8 @@ const NavBarItems = () => {
         {
             title: 'Документы',
             link: '/documents/userDocuments',
-            iconPath: '../MenuIcons/one.svg'
+            iconPath: '../MenuIcons/one.svg',
+            isActive: location.pathname.includes('/documents')
         },
 
         {
@@ -34,7 +35,7 @@ const NavBarItems = () => {
         <div className='w-full flex justify-center py-4 gap-10 items-center'>
             {
                 navBarItems.map((item, index) => (
-                    <NavBarButton key={`${index}__${item.link}`} icon={item.iconPath} title={item.title} to={item.link} />
+                    <NavBarButton key={`${index}__${item.link}`} icon={item.iconPath} title={item.title} to={item.link} isActive={item.isActive || location.pathname === item.link} />
                 ))
             }
             <Link className='hidden md:block' to={`/profile`}>
