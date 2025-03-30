@@ -11,6 +11,7 @@ import useAuth from '../../Hooks/useAuth';
 
 
 const RegistrationPage = () => {
+    const navigate = useNavigate();
     const { setAuth } = useAuth();
     const navigation = useNavigate();
     const handleTelegramResponse = (response) => {
