@@ -8,25 +8,26 @@ const NavBarItems = () => {
         {
             title: 'Объекты',
             link: '/aboutObjects',
-            iconPath: '../MenuIcons/two.svg'
+            iconPath: '../MenuIcons/two.svg',
+            isActive: location.pathname === '/aboutObjects'
         },
         {
             title: 'Услуги',
             link: '/',
-            iconPath: '../MenuIcons/three.svg'
+            iconPath: '../MenuIcons/three.svg',
+            isActive: location.pathname === '/'
         },
-
         {
             title: 'Документы',
             link: '/documents/userDocuments',
             iconPath: '../MenuIcons/one.svg',
-            isActive: location.pathname.includes('/documents')
+            isActive: location.pathname.startsWith('/documents') // Проверяет любой путь, начинающийся с /documents
         },
-
         {
             title: 'Персональные данные',
             link: '/personalData',
-            iconPath: '../MenuIcons/four.svg'
+            iconPath: '../MenuIcons/four.svg',
+            isActive: location.pathname === '/personalData'
         },
     ]
 
@@ -35,7 +36,7 @@ const NavBarItems = () => {
         <div className='w-full flex justify-center py-4 gap-10 items-center'>
             {
                 navBarItems.map((item, index) => (
-                    <NavBarButton key={`${index}__${item.link}`} icon={item.iconPath} title={item.title} to={item.link} isActive={item.isActive || location.pathname === item.link} />
+                    <NavBarButton key={`${index}__${item.link}`} icon={item.iconPath} title={item.title} to={item.link} isActive={item.isActive} />
                 ))
             }
             <Link className='hidden md:block' to={`/profile`}>
