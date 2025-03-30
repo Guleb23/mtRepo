@@ -6,10 +6,12 @@ import axsios from '../../api/axsios';
 import { useNavigate } from 'react-router-dom';
 import TelegramLoginButton from 'react-telegram-login';
 import axios from 'axios';
+import useAuth from '../../Hooks/useAuth';
 
 
 
 const RegistrationPage = () => {
+    const { setAuth } = useAuth();
     const navigation = useNavigate();
     const handleTelegramResponse = (response) => {
         console.log(response); // Данные пользователя
@@ -31,8 +33,14 @@ const RegistrationPage = () => {
     const sendDataToBackend = async (resp) => {
         try {
             const response = await axios.post("https://localhost:7087/auth/telegram", resp);
-            localStorage.setItem("token", response.data.token);
-            console.log("✅ Данные успешно отправлены:", response.data);
+            setAuth({
+                token: response.data.token,
+                id: response.data.id
+
+            });
+            localStorage.setItem("token", response.data.token)
+            localStorage.setItem("id", response.data.id)
+            navigate("/profile");
         } catch (error) {
             console.error("❌ Ошибка при отправке данных:", error);
         }
