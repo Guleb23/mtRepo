@@ -1,9 +1,9 @@
 import React from 'react'
 import NavBarButton from './NavBarButton'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const NavBarItems = () => {
-
+    const location = useLocation();
     const navBarItems = [
         {
             title: 'Объекты',
