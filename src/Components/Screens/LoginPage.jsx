@@ -6,6 +6,7 @@ import axsios from '../../api/axsios'
 import useAuth from '../../Hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import TelegramLoginButton from 'react-telegram-login';
+import axios from 'axios'
 const LOGIN_URL = '/login';
 
 const LoginPage = () => {
