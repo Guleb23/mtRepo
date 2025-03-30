@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-const NavBarButton = ({ title, to, icon }) => {
+const NavBarButton = ({ title, to, icon, isActive }) => {
 
     const location = useLocation();
 
