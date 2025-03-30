@@ -28,8 +28,8 @@ function App() {
           <Route path='/' element={<Services />} />
           <Route path="/:id" element={<ServiceDetails />} />
           <Route path='/documents' element={<DocumentsSkelet />}>
-            <Route path='/userDocuments' element={<UserDocuments />} />
-            <Route path='/companyDocuments' element={<CompanyDocuments />} />
+            <Route path='userDocuments' element={<UserDocuments />} />
+            <Route path='companyDocuments' element={<CompanyDocuments />} />
           </Route>
 
           <Route path='/registration' element={

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import CustomHeader from '../CustomHeader'
 import CustomBtn from '../CustomBtn'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import SearchBar from '../SearchBar'
 import Modal from './Modal'
 
-const DocumentsSkelet = ({ children }) => {
+const DocumentsSkelet = () => {
     const location = useLocation();
     const path = location.pathname;
 
@@ -16,10 +16,10 @@ const DocumentsSkelet = ({ children }) => {
 
                 <CustomHeader title={"Документы"} />
                 <nav className='flex gap-3'>
-                    <Link to={'/userDocuments'}>
+                    <Link to={'/documents/userDocuments'}>
                         <CustomBtn customStyles={path == "/userDocuments" ? "!bg-[#b4b7bb]" : ""} title={"Мои документы"} />
                     </Link>
-                    <Link to={'/companyDocuments'}>
+                    <Link to={'/documents/companyDocuments'}>
                         <CustomBtn customStyles={path == "/companyDocuments" ? "!bg-[#b4b7bb]" : ""} title={"От компании"} />
                     </Link>
 
@@ -27,7 +27,7 @@ const DocumentsSkelet = ({ children }) => {
                 <SearchBar />
 
                 <>
-                    {children}
+                    <Outlet />
                 </>
             </section >
         </div>
