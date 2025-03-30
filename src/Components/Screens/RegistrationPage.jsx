@@ -76,17 +76,17 @@ const RegistrationPage = () => {
     return (
         <>
             <PhoneInput phone={user.phone} handleChange={(e) => { setUser({ ...user, phone: e.target.value }) }} phoneValue={user.Phone} inpId={`userPhone`} name={`Введите свой номер телефона`} />
-            <div className='flex flex-1 items-end lg:items-start lg:flex-none '>
+            <div className='flex flex-1 items-end lg:items-start lg:flex-none gap-2 '>
 
                 <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
-
-            </div>
-            <div className='w-full'>
                 <TelegramLoginButton
                     botName="esgiktelegramm_bot"
                     dataOnauth={handleTelegramResponse}
                     buttonSize="large"
                 />
+            </div>
+            <div className='w-full'>
+
             </div>
 
         </>
