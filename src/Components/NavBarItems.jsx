@@ -27,7 +27,7 @@ const NavBarItems = () => {
             title: 'Персональные данные',
             link: '/personalData',
             iconPath: '../MenuIcons/four.svg',
-            isActive: location.pathname === '/personalData'
+            isActive: location.pathname.startsWith('/personalData')
         },
     ]
 

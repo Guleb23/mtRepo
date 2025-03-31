@@ -14,13 +14,12 @@ const UserDocuments = () => {
     const [data, setData] = useState([]);
     const navigator = useNavigate();
     useEffect(() => {
-        console.log("render");
 
         const id = localStorage.getItem("id")
         const token = localStorage.getItem("token")
 
         if (!token) {
-            navigator("/noneuser");
+            navigator("/documents/noneuser");
             return;
         }
         try {

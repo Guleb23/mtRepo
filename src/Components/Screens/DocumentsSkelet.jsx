@@ -1,37 +1,43 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CustomHeader from '../CustomHeader'
 import CustomBtn from '../CustomBtn'
-import { Link, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import SearchBar from '../SearchBar'
 import Modal from './Modal'
 
 const DocumentsSkelet = () => {
     const location = useLocation();
     const path = location.pathname;
+    const navigator = useNavigate();
+    useEffect(() => {
 
+        const id = localStorage.getItem("id")
+        const token = localStorage.getItem("token")
+
+        if (!token && !id) {
+            navigator("/documents/noneuser");
+            return;
+        }
+    }, [])
     return (
-        <div>
+        <section className={`flex flex-col gap-5 pb-36 h-full `} >
 
-            <section className={`flex flex-col gap-5 pb-36 h-full `} >
+            <CustomHeader title={"Документы"} />
+            <nav className='flex gap-3'>
+                <Link to={'/documents/userDocuments'}>
+                    <CustomBtn customStyles={path == "/documents/userDocuments" ? "!bg-[#b4b7bb]" : ""} title={"Мои документы"} />
+                </Link>
+                <Link to={'/documents/companyDocuments'}>
+                    <CustomBtn customStyles={path == "/documents/companyDocuments" ? "!bg-[#b4b7bb]" : ""} title={"От компании"} />
+                </Link>
 
-                <CustomHeader title={"Документы"} />
-                <nav className='flex gap-3'>
-                    <Link to={'/documents/userDocuments'}>
-                        <CustomBtn customStyles={path == "/documents/userDocuments" ? "!bg-[#b4b7bb]" : ""} title={"Мои документы"} />
-                    </Link>
-                    <Link to={'/documents/companyDocuments'}>
-                        <CustomBtn customStyles={path == "/documents/companyDocuments" ? "!bg-[#b4b7bb]" : ""} title={"От компании"} />
-                    </Link>
+            </nav>
+            <SearchBar />
 
-                </nav>
-                <SearchBar />
-
-                <>
-                    <Outlet />
-                </>
-            </section >
-        </div>
-
+            <>
+                <Outlet />
+            </>
+        </section >
     )
 }
 
