@@ -10,10 +10,8 @@ const DocumentsSkelet = () => {
     const path = location.pathname;
     const navigator = useNavigate();
     useEffect(() => {
-
         const id = localStorage.getItem("id")
         const token = localStorage.getItem("token")
-
         if (!token && !id) {
             navigator("/documents/noneuser");
             return;

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 const NoneAutorisation = ({ text }) => {
     return (
         <div className=' flex flex-1 flex-col gap-2 font-medium justify-center items-center'>
+            <img width={200} src='../Images/Logo.svg' />
             <p>Вы не авторизованы</p>
             <p className='text-[#1A80E5] text-xs'>{text}</p>
             <div className='flex gap-3'>

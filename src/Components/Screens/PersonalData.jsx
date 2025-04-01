@@ -17,7 +17,7 @@ const PersonalData = ({ user }) => {
         const id = localStorage.getItem("id");
         const token = localStorage.getItem("token");
         if (!token) {
-            navigator("/noneuser");
+            navigator("/personalData/noneuser");
             return;
         }
         try {

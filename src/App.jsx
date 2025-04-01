@@ -31,7 +31,7 @@ function App() {
           <Route path='/documents' element={<DocumentsSkelet />}>
             <Route path='userDocuments' element={<UserDocuments />} />
             <Route path='companyDocuments' element={<CompanyDocuments />} />
-            <Route path='noneuser' element={<NoneAutorisation />} />
+            <Route path='noneuser' element={<NoneAutorisation text={`Тут будут храниться документы`} />} />
           </Route>
 
           <Route path='/registration' element={
@@ -48,12 +48,15 @@ function App() {
               <LoginPage />
             </LoginRegistrSkelet>} />
 
-          <Route path='/personalData' element={<AppSkelet title={`Персональные данные`} />}>
+          <Route path='/personalData' element={<AppSkelet path={`/personalData`} title={`Персональные данные`} />}>
             <Route element={<PersonalData user={token} />} />
-            <Route path='noneuser' element={<NoneAutorisation />} />
+            <Route path='noneuser' element={<NoneAutorisation text={`Тут будут ваши персональные данные`} />} />
+          </Route>
+          <Route path='/profile' element={<AppSkelet path={`/profile`} title={`Профиль`} />}>
+            <Route element={<Profile user={token} />} />
+            <Route path='noneuser' element={<NoneAutorisation text={`Тут будут данные вашего профиля`} />} />
           </Route>
 
-          <Route path='/profile' element={<Profile user={token} />} />
           <Route path='/aboutObjects' element={<AboutObjects user={token} />} />
         </Routes>
       </div>

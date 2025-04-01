@@ -31,6 +31,13 @@ const NavBarItems = () => {
         },
     ]
 
+    const profile = {
+        title: 'Профиль',
+        link: '/profile',
+        iconPath: '../MenuIcons/Profik.svg',
+        isActive: location.pathname.startsWith('/profile')
+    }
+
 
     return (
         <div className='w-full flex justify-center py-4 gap-10 items-center'>
@@ -42,7 +49,7 @@ const NavBarItems = () => {
             <Link className='hidden md:block' to={`/profile`}>
                 <img className=' justify-start  ml-16' src='../Images/ProfileIcon.svg' width={50} height={50} />
             </Link>
-            <NavBarButton icon={`../MenuIcons/Profik.svg`} to={`/profile`} />
+            <NavBarButton icon={profile.iconPath} to={profile.link} isActive={profile.isActive} />
         </div>
     )
 }
