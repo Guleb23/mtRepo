@@ -60,7 +60,6 @@ const PersonalData = ({ user }) => {
 
     return (
         <div className='flex flex-col gap-5 pb-36 h-full'>
-            <CustomHeader title={`Персональные данные`} />
             {user ? <IsUser setData={setData} data={data} hundleClick={hundleClick} /> : <NoneAutorisation text={`Тут будут ваши данные, необходимые для формирования заказа`} />}
 
         </div>
