@@ -44,7 +44,9 @@ const UserDocuments = () => {
             <p>loading</p>
         )
     }
-
+    const handleViewDocument = (pdfUrl) => {
+        window.open(pdfUrl, '_blank'); // Открывает PDF в новой вкладке
+    };
     const toggleShowModal = () => {
         setShowModal(!showModal);
     };
@@ -60,7 +62,7 @@ const UserDocuments = () => {
 
             <div className='py-6 flex flex-col gap-5'>
                 {data?.map((item) => (
-                    <DocumentCard onDelete={handleClientDelete} title={item.title} key={item.id} id={item.id} />
+                    <DocumentCard handleViewDocument={handleViewDocument} onDelete={handleClientDelete} title={item.title} key={item.id} id={item.id} />
                 ))}
             </div>
         </div>
