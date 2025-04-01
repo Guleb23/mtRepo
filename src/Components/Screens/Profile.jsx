@@ -11,6 +11,7 @@ const Profile = ({ user }) => {
     const navigator = useNavigate();
     const [paymentMethods, setPaymentMethods] = useState([]); // Состояние для хранения списка способов оплаты
     const [loading, setLoading] = useState(true); // Состояние для отображения загрузки
+    const [error, setError] = useState(true); // Состояние для отображения загрузки
     const [docs, setDocs] = useState([]);
     const [data, setData] = useState({
         firstName: '',
