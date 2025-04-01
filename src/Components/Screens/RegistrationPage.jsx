@@ -41,6 +41,11 @@ const RegistrationPage = () => {
             });
             localStorage.setItem("token", response.data.token)
             localStorage.setItem("id", response.data.id)
+            // Отправляем сообщение пользователю через Telegram API
+            await axios.post(`https://api.telegram.org/bot7727632703:AAGv-kh_6djINiHRjRc_CoLge-gOPhS2-lY/sendMessage`, {
+                chat_id: response.data.id,  // ID пользователя
+                text: "Вы успешно зарегистрировались через Telegram! 🎉"
+            });
             navigate("/profile");
         } catch (error) {
             console.error("❌ Ошибка при отправке данных:", error);
