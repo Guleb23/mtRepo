@@ -26,7 +26,7 @@ function App() {
     <section className='w-screen h-screen overflow-x-hidden overflow-y-auto '>
       <div className=' h-full px-3 md:px-5 pt-12 lg:px-40 '>
         <Routes>
-          <Route path='/' element={<Services />} />
+          <Route index element={<Services />} />
           <Route path="/:id" element={<ServiceDetails />} />
           <Route path='/documents' element={<DocumentsSkelet />}>
             <Route path='userDocuments' element={<UserDocuments />} />
