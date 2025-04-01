@@ -49,11 +49,11 @@ function App() {
             </LoginRegistrSkelet>} />
 
           <Route path='/personalData' element={<AppSkelet path={`/personalData`} title={`Персональные данные`} />}>
-
+            <Route element={<PersonalData user={token} />} />
             <Route path='noneuser' element={<NoneAutorisation text={`Тут будут ваши персональные данные`} />} />
           </Route>
           <Route path='/profile' element={<AppSkelet path={`/profile`} title={`Профиль`} />}>
-
+            <Route element={<Profile user={token} />} />
             <Route path='noneuser' element={<NoneAutorisation text={`Тут будут данные вашего профиля`} />} />
           </Route>
 
