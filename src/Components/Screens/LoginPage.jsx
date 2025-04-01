@@ -35,33 +35,7 @@ const LoginPage = () => {
             console.error("❌ Ошибка при отправке данных:", error);
         }
     };
-    const handleChange = (event) => {
-        const value = event.target.value;
 
-        // Убираем всё, кроме цифр
-        const cleanedValue = value.replace(/\D/g, "");
-
-        // Применяем маску: +7 (XXX) XXX-XX-XX
-        let formattedValue = "";
-        if (cleanedValue.length > 0) {
-            formattedValue += "+7";
-            if (cleanedValue.length > 1) {
-                formattedValue += `(${cleanedValue.slice(1, 4)}`;
-            }
-            if (cleanedValue.length > 4) {
-                formattedValue += `) ${cleanedValue.slice(4, 7)}`;
-            }
-            if (cleanedValue.length > 7) {
-                formattedValue += `-${cleanedValue.slice(7, 9)}`;
-            }
-            if (cleanedValue.length > 9) {
-                formattedValue += `-${cleanedValue.slice(9, 11)}`;
-            }
-        }
-
-        // Обновляем состояние
-        setPhone(formattedValue);
-    };
     const handlePassword = (event) => {
         const value = event.target.value;
         setPassword(value);
@@ -102,7 +76,7 @@ const LoginPage = () => {
             <form onSubmit={onClick} className='flex flex-col gap-3'>
 
 
-                <PhoneInput phone={phone} handleChange={handleChange} phoneValue={phone} inpId={`userPhone`} name={`Введите свой номер телефона`} />
+                <PhoneInput phone={phone} handleChange={setPhone} phoneValue={phone} inpId={`userPhone`} name={`Введите свой номер телефона`} />
                 <CustomInput handleChange={handlePassword} inpId={`userPassword`} name={`Введите пароль`} />
                 <div className='flex flex-1 items-end lg:items-start lg:flex-none gap-2 '>
                     <CustomBtn customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Войти`} />
