@@ -1,12 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react'
-import CustomInput from '../CustomInput'
-import PhoneInput from '../PhoneInput'
-import CustomBtn from '../CustomBtn'
-import axsios from '../../api/axsios'
-import useAuth from '../../Hooks/useAuth'
-import { useNavigate } from 'react-router-dom'
-import TelegramLoginButton from 'react-telegram-login';
-import axios from 'axios'
+import React, { useState } from 'react';
+import CustomInput from '../CustomInput';
+import PhoneInput from '../PhoneInput';
+import CustomBtn from '../CustomBtn';
+import axsios from '../../api/axsios';
+import useAuth from '../../Hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import TelegramLoginButton from '../TelegramLoginButton'; // Импортируем новый компонент
+
 const LOGIN_URL = '/login';
 
 const LoginPage = () => {
@@ -15,21 +16,28 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const [token, setToken] = useState("");
-    const handleTelegramResponse = (response) => {
-        console.log(response); // Данные пользователя
-        sendDataToBackend(response);
+    const handleTelegramAuth = (userData) => {
+        sendDataToBackend(userData);
     };
-    const sendDataToBackend = async (resp) => {
+
+    const sendDataToBackend = async (userData) => {
         try {
-            const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram", resp);
+            const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram", {
+                id: userData.id,
+                first_name: userData.first_name,
+                last_name: userData.last_name || '',
+                username: userData.username || '',
+                photo_url: userData.photo_url || '',
+                auth_date: userData.auth_date,
+                hash: userData.hash
+            });
+
             setAuth({
                 token: response.data.token,
                 id: response.data.id
-
             });
-            localStorage.setItem("token", response.data.token)
-            localStorage.setItem("id", response.data.id)
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("id", response.data.id);
             navigate("/profile");
         } catch (error) {
             console.error("❌ Ошибка при отправке данных:", error);
@@ -37,57 +45,56 @@ const LoginPage = () => {
     };
 
     const handlePassword = (event) => {
-        const value = event.target.value;
-        setPassword(value);
-    }
+        setPassword(event.target.value);
+    };
 
     const onClick = async (e) => {
         e.preventDefault();
-
-        axsios.post(LOGIN_URL, {
-            phone,
-            password
-        }, {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            withCredentials: true,
-        })
-            .then((response) => {
-                setAuth({
-                    token: response.data.token,
-                    id: response.data.id
-
-                });
-                localStorage.setItem("token", response.data.token)
-                localStorage.setItem("id", response.data.id)
-                navigate("/profile");
-            })
-            .catch((error) => {
-                console.error("Error:", error, " ", phone);
+        try {
+            const response = await axsios.post(LOGIN_URL, {
+                phone,
+                password
+            }, {
+                headers: { "Content-Type": "application/json" },
+                withCredentials: true,
             });
 
-
+            setAuth({
+                token: response.data.token,
+                id: response.data.id
+            });
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("id", response.data.id);
+            navigate("/profile");
+        } catch (error) {
+            console.error("Error:", error, " ", phone);
+        }
     };
 
-
     return (
-        <>
+        <div className='flex flex-col gap-3'>
             <form onSubmit={onClick} className='flex flex-col gap-3'>
-
-
                 <PhoneInput phone={phone} handleChange={setPhone} phoneValue={phone} inpId={`userPhone`} name={`Введите свой номер телефона`} />
-                <CustomInput handleChange={handlePassword} inpId={`userPassword`} name={`Введите пароль`} />
-                <div className='flex flex-1 items-end lg:items-start lg:flex-none gap-2 '>
-                    <CustomBtn customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Войти`} />
-
-                </div>
-
+                <CustomInput
+                    handleChange={handlePassword}
+                    inpId={`userPassword`}
+                    name={`Введите пароль`}
+                    type="password"
+                />
+                <CustomBtn
+                    customStyles={`w-full h-10 !bg-[#1A80E5] text-white`}
+                    title={`Войти`}
+                    type="submit"
+                />
             </form>
 
+            {/* Используем вынесенный компонент */}
+            <TelegramLoginButton
+                botName="esgikh_bot"
+                onAuth={handleTelegramAuth}
+            />
+        </div>
+    );
+};
 
-        </>
-    )
-}
-
-export default LoginPage
+export default LoginPage;
