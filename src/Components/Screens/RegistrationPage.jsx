@@ -85,7 +85,7 @@ const RegistrationPage = () => {
 
                 <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
                 <TelegramLoginButton
-                    botName="esgiktelegramm_bot"
+                    botName="esgikh_bot"
                     dataOnauth={handleTelegramResponse}
                     buttonSize="large"
                 />
