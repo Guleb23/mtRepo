@@ -93,7 +93,6 @@ const RegistrationPage = () => {
                     __html: `<script async src="https://telegram.org/js/telegram-widget.js?7"
                         data-telegram-login="esgikh_bot"
                         data-size="large"
-                        data-auth-url="https://mt-repo.vercel.app/profile"
                         data-request-access="write">
                     </script>`
                 }} />
