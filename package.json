@@ -1,12 +1,12 @@
 {
-  "homepage": "/",
+  "homepage": "./",
   "name": "kworkproj",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "react-scripts build && mv build dist",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
