@@ -20,7 +20,7 @@ const AppSkelet = ({ title, path }) => {
         <section className={`flex flex-col gap-5  pb-36 h-full w-full `} >
             <CustomHeader title={title} />
 
-            <div className='flex-1 flex justify-center items-center'>
+            <div className='flex-1'>
                 <Outlet />
             </div>
         </section >
