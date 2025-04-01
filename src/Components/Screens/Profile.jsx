@@ -127,7 +127,6 @@ const Profile = ({ user }) => {
     }
     return (
         <section className='flex flex-col gap-5 pb-36 h-full overflow-y-auto'>
-            <CustomHeader title={`Профиль`} />
             {user ?
                 <div className='flex flex-col gap-4 '>
                     <h2 className='font-medium'>
