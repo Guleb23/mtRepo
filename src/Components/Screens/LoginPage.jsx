@@ -80,11 +80,7 @@ const LoginPage = () => {
                 <CustomInput handleChange={handlePassword} inpId={`userPassword`} name={`Введите пароль`} />
                 <div className='flex flex-1 items-end lg:items-start lg:flex-none gap-2 '>
                     <CustomBtn customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Войти`} />
-                    <TelegramLoginButton
-                        botName="esgikh_bot"
-                        dataOnauth={handleTelegramResponse}
-                        buttonSize="large"
-                    />
+
                 </div>
 
             </form>
