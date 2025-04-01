@@ -24,6 +24,16 @@ const RegistrationPage = () => {
             console.log("Данные от Telegram:", event.data);
             sendDataToBackend(event.data);
         });
+
+        // Загружаем Telegram-скрипт динамически
+        const script = document.createElement("script");
+        script.src = "https://telegram.org/js/telegram-widget.js?7";
+        script.async = true;
+        document.body.appendChild(script);
+
+        return () => {
+            window.removeEventListener("message", () => { });
+        };
     }, []);
 
     const sendDataToBackend = async (resp) => {
@@ -40,6 +50,7 @@ const RegistrationPage = () => {
                 chat_id: response.data.id,
                 text: "Вы успешно зарегистрировались через Telegram! 🎉"
             });
+
             navigate("/profile");
         } catch (error) {
             console.error("❌ Ошибка при отправке данных:", error);
@@ -78,14 +89,14 @@ const RegistrationPage = () => {
             />
             <div className='flex flex-1 items-end lg:items-start lg:flex-none gap-2'>
                 <CustomBtn onClick={handleClick} customStyles='w-full h-10 !bg-[#1A80E5] text-white' title='Регистрация' />
-                <div>
-                    <script async src="https://telegram.org/js/telegram-widget.js?7"
+                <div dangerouslySetInnerHTML={{
+                    __html: `<script async src="https://telegram.org/js/telegram-widget.js?7"
                         data-telegram-login="esgikh_bot"
                         data-size="large"
                         data-auth-url="https://guleb23-webapplication2-a40c.twc1.net/auth/telegram"
                         data-request-access="write">
-                    </script>
-                </div>
+                    </script>`
+                }} />
             </div>
         </>
     );
