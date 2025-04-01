@@ -25,7 +25,7 @@ const NavBarItems = () => {
         },
         {
             title: 'Персональные данные',
-            link: '/personalData/data',
+            link: '/personalData',
             iconPath: '../MenuIcons/four.svg',
             isActive: location.pathname.startsWith('/personalData')
         },
@@ -33,7 +33,7 @@ const NavBarItems = () => {
 
     const profile = {
         title: 'Профиль',
-        link: '/profile/user',
+        link: '/profile',
         iconPath: '../MenuIcons/Profik.svg',
         isActive: location.pathname.startsWith('/profile')
     }
