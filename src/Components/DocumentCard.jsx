@@ -73,7 +73,7 @@ const DocumentCard = ({ title, id, onDelete, handleViewDocument }) => {
     return (
         <div className='flex border-[#D5DEE7] border  bg-[#F7FAFC] rounded-xl px-3 py-4 items-center gap-5'>
             <p className='flex-1'>{title}</p>
-            <button onClick={handleViewDocument} className='border-[#1A80E5] border-2 rounded-xl flex items-center gap-2 px-2 py-2'>
+            <button onClick={() => handleViewDocument(id)} className='border-[#1A80E5] border-2 rounded-xl flex items-center gap-2 px-2 py-2'>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8 12L12 16M12 16L16 12M12 16V8M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="#1A80E5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

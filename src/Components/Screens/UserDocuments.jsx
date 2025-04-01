@@ -44,8 +44,20 @@ const UserDocuments = () => {
             <p>loading</p>
         )
     }
-    const handleViewDocument = (pdfUrl) => {
-        window.open(pdfUrl, '_blank'); // Открывает PDF в новой вкладке
+    const handleViewDocument = async (documentId) => {
+
+        try {
+            const token = localStorage.getItem("token");
+            const response = await axsios.get(`/downloadDocument/${documentId}`, {
+                headers: { Authorization: `Bearer ${token}` },
+                responseType: 'blob' // Указываем, что ожидаем бинарные данные (файл)
+            });
+
+            const fileURL = window.URL.createObjectURL(new Blob([response.data], { type: 'application/pdf' }));
+            window.open(fileURL, '_blank'); // Открываем в новой вкладке
+        } catch (error) {
+            console.error("Ошибка при открытии документа", error);
+        }
     };
     const toggleShowModal = () => {
         setShowModal(!showModal);
