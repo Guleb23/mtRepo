@@ -94,7 +94,7 @@ const RegistrationPage = () => {
                 <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
                 {/* Используем вынесенный компонент */}
                 <TelegramLoginButton
-                    botName="esgikh_bot" // Ваш username бота
+                    botName="esgikss_bot" // Ваш username бота
                     buttonSize="large"    // large, medium или small
                     onAuth={handleTelegramAuth}
                     className="custom-telegram-button"
