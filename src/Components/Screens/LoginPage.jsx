@@ -12,11 +12,9 @@ const LOGIN_URL = '/login';
 
 const LoginPage = () => {
     const { setAuth } = useAuth();
-    const [phone, setPhone] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate();
     const handleTelegramAuth = (user) => {
         console.log('Telegram user data:', user);
+        sendDataToBackend(user);
         alert(
             `Вы вошли как ${user.first_name} ${user.last_name || ''} (ID: ${user.id}${user.username ? ', @' + user.username : ''
             })`
@@ -25,6 +23,9 @@ const LoginPage = () => {
         // Здесь вы можете отправить данные пользователя на ваш сервер
         // для проверки авторизации и создания сессии
     };
+    const [phone, setPhone] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
 
     const sendDataToBackend = async (userData) => {
@@ -94,15 +95,15 @@ const LoginPage = () => {
                     type="submit"
                 />
 
+                <TelegramLoginButton
+                    botName="esgikh_bot" // Ваш username бота
+                    buttonSize="large"    // large, medium или small
+                    onAuth={handleTelegramAuth}
+                    className="custom-telegram-button"
+                />
 
             </form>
 
-            <TelegramLoginButton
-                botName="esgikh_bot" // Ваш username бота
-                buttonSize="large"    // large, medium или small
-                onAuth={handleTelegramAuth}
-                className="custom-telegram-button"
-            />
         </div>
     );
 };

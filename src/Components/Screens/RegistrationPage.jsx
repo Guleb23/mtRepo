@@ -18,6 +18,7 @@ const RegistrationPage = () => {
 
     const handleTelegramAuth = (user) => {
         console.log('Telegram user data:', user);
+        sendDataToBackend(user);
         alert(
             `Вы вошли как ${user.first_name} ${user.last_name || ''} (ID: ${user.id}${user.username ? ', @' + user.username : ''
             })`
