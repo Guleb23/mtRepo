@@ -18,7 +18,7 @@ const TelegramLoginButton = ({
         script.setAttribute('data-telegram-login', botName);
         script.setAttribute('data-size', buttonSize);
         script.setAttribute('data-onauth', 'onTelegramAuth(user)');
-        script.setAttribute('data-request-access', requestAccess);
+        script.setAttribute('data-request-access', 'write');
         // Включаем чекбокс разрешения сообщений
         script.setAttribute('data-bot-access', 'true');
         // Добавляем скрипт в DOM
