@@ -18,6 +18,7 @@ const RegistrationPage = () => {
 
     const handleTelegramAuth = (user) => {
         console.log('Telegram user data:', user);
+        window.open(`https://t.me/${botName}?start=start`, '_blank');
         sendDataToBackend(user);
         alert(
             `Вы вошли как ${user.first_name} ${user.last_name || ''} (ID: ${user.id}${user.username ? ', @' + user.username : ''
