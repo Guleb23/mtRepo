@@ -14,12 +14,12 @@ const LoginPage = () => {
     const { setAuth } = useAuth();
     const handleTelegramAuth = (user) => {
         console.log('Telegram user data:', user);
-        sendDataToBackend(user);
+
         alert(
             `Вы вошли как ${user.first_name} ${user.last_name || ''} (ID: ${user.id}${user.username ? ', @' + user.username : ''
             })`
         );
-
+        sendDataToBackend(user);
         // Здесь вы можете отправить данные пользователя на ваш сервер
         // для проверки авторизации и создания сессии
     };
@@ -38,7 +38,10 @@ const LoginPage = () => {
                 photo_url: userData.photo_url || '',
                 auth_date: userData.auth_date,
                 hash: userData.hash
-            });
+            },
+                {
+                    timeout: 10000, // Увеличиваем таймаут до 10 секунд
+                });
 
             setAuth({
                 token: response.data.token,
