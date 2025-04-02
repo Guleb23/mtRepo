@@ -14,9 +14,8 @@ const RegistrationPage = () => {
     const navigate = useNavigate();
     const { setAuth } = useAuth();
     const navigation = useNavigate();
-    const handleTelegramResponse = (response) => {
-        console.log(response); // Данные пользователя
-        sendDataToBackend(response);
+    const handleTelegramAuth = (userData) => {
+        sendDataToBackend(userData);
     };
 
     const [user, setUser] = useState({
@@ -84,10 +83,10 @@ const RegistrationPage = () => {
             <div className='flex flex-1 items-end lg:items-start lg:flex-none gap-2 '>
 
                 <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
+                {/* Используем вынесенный компонент */}
                 <TelegramLoginButton
                     botName="esgikh_bot"
-                    dataOnauth={handleTelegramResponse}
-                    buttonSize="large"
+                    onAuth={handleTelegramAuth}
                 />
             </div>
             <div className='w-full'>

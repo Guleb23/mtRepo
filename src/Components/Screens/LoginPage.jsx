@@ -86,13 +86,14 @@ const LoginPage = () => {
                     title={`Войти`}
                     type="submit"
                 />
+                {/* Используем вынесенный компонент */}
+                <TelegramLoginButton
+                    botName="esgikh_bot"
+                    onAuth={handleTelegramAuth}
+                />
             </form>
 
-            {/* Используем вынесенный компонент */}
-            <TelegramLoginButton
-                botName="esgikh_bot"
-                onAuth={handleTelegramAuth}
-            />
+
         </div>
     );
 };
