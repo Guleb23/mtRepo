@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 const TelegramLoginButton = ({
     botName,
     buttonSize = 'medium',
-    requestAccess = 'write',
+    requestAccess = '',
     onAuth,
     className
 }) => {
