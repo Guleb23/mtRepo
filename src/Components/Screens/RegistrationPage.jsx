@@ -10,14 +10,22 @@ import useAuth from '../../Hooks/useAuth';
 
 
 
+
 const RegistrationPage = () => {
     const navigate = useNavigate();
     const { setAuth } = useAuth();
     const navigation = useNavigate();
-    const handleTelegramAuth = (userData) => {
-        sendDataToBackend(userData);
-    };
 
+    const handleTelegramAuth = (user) => {
+        console.log('Telegram user data:', user);
+        alert(
+            `Вы вошли как ${user.first_name} ${user.last_name || ''} (ID: ${user.id}${user.username ? ', @' + user.username : ''
+            })`
+        );
+
+        // Здесь вы можете отправить данные пользователя на ваш сервер
+        // для проверки авторизации и создания сессии
+    };
     const [user, setUser] = useState({
         firstName: "",
         lastName: "",
@@ -85,11 +93,10 @@ const RegistrationPage = () => {
                 <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
                 {/* Используем вынесенный компонент */}
                 <TelegramLoginButton
-                    botName="esgikh_bot"
-                    onAuth={(user) => {
-                        console.log('Telegram user:', user);
-                        sendDataToBackend(user);
-                    }}
+                    botName="esgikh_bot" // Ваш username бота
+                    buttonSize="large"    // large, medium или small
+                    onAuth={handleTelegramAuth}
+                    className="custom-telegram-button"
                 />
             </div>
             <div className='w-full'>
