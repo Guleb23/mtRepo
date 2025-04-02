@@ -4,7 +4,7 @@ import CustomBtn from '../CustomBtn'
 import PhoneInput from '../PhoneInput'
 import axsios from '../../api/axsios';
 import { useNavigate } from 'react-router-dom';
-import TelegramLoginButton from 'react-telegram-login';
+import TelegramLoginButton from '../TelegramLoginButton';
 import axios from 'axios';
 import useAuth from '../../Hooks/useAuth';
 
@@ -86,7 +86,10 @@ const RegistrationPage = () => {
                 {/* Используем вынесенный компонент */}
                 <TelegramLoginButton
                     botName="esgikh_bot"
-                    onAuth={handleTelegramAuth}
+                    onAuth={(user) => {
+                        console.log('Telegram user:', user);
+                        sendDataToBackend(user);
+                    }}
                 />
             </div>
             <div className='w-full'>

@@ -16,9 +16,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
-    const handleTelegramAuth = (userData) => {
-        sendDataToBackend(userData);
-    };
+
 
     const sendDataToBackend = async (userData) => {
         try {
@@ -86,14 +84,17 @@ const LoginPage = () => {
                     title={`Войти`}
                     type="submit"
                 />
-                {/* Используем вынесенный компонент */}
-                <TelegramLoginButton
-                    botName="esgikh_bot"
-                    onAuth={handleTelegramAuth}
-                />
+
+
             </form>
 
-
+            <TelegramLoginButton
+                botName="esgikh_bot"
+                onAuth={(user) => {
+                    console.log('Telegram user:', user);
+                    sendDataToBackend(user);
+                }}
+            />
         </div>
     );
 };
