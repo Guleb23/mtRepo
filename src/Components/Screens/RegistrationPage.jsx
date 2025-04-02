@@ -18,7 +18,6 @@ const RegistrationPage = () => {
 
     const handleTelegramAuth = (user) => {
         console.log('Telegram user data:', user);
-        window.open(`https://t.me/${botName}?start=start`, '_blank');
         sendDataToBackend(user);
         alert(
             `Вы вошли как ${user.first_name} ${user.last_name || ''} (ID: ${user.id}${user.username ? ', @' + user.username : ''
@@ -40,16 +39,24 @@ const RegistrationPage = () => {
     });
 
     const [data, setData] = useState({});
-    const sendDataToBackend = async (resp) => {
+    const sendDataToBackend = async (userData) => {
         try {
-            const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram", resp);
+            const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/telegram", {
+                id: userData.id,
+                first_name: userData.first_name,
+                last_name: userData.last_name || '',
+                username: userData.username || '',
+                photo_url: userData.photo_url || '',
+                auth_date: userData.auth_date,
+                hash: userData.hash
+            });
+
             setAuth({
                 token: response.data.token,
                 id: response.data.id
-
             });
-            localStorage.setItem("token", response.data.token)
-            localStorage.setItem("id", response.data.id)
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("id", response.data.id);
             navigate("/profile");
         } catch (error) {
             console.error("❌ Ошибка при отправке данных:", error);
