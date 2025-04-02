@@ -96,7 +96,7 @@ const LoginPage = () => {
                 />
 
                 <TelegramLoginButton
-                    botName="esgikss_bot" // Ваш username бота
+                    botName="esgoknew_bot" // Ваш username бота
                     buttonSize="large"    // large, medium или small
                     onAuth={handleTelegramAuth}
                     className="custom-telegram-button"
