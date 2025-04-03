@@ -24,7 +24,10 @@ const TelegramLoginButton = ({
         if (container) {
             container.appendChild(script);
         }
-
+        document.cookie.split(';').forEach(cookie => {
+            document.cookie = cookie.trim().split('=')[0] + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=.telegram.org; path=/';
+        });
+        console.log('Cookies очищены');
         // Устанавливаем обработчик авторизации
         window.onTelegramAuth = onAuth;
 
