@@ -28,6 +28,7 @@ const TelegramLoginButton = ({
         // Устанавливаем обработчик авторизации
         window.onTelegramAuth = onAuth;
 
+
         return () => {
             // Удаляем скрипт при размонтировании компонента
             if (container && script.parentNode === container) {

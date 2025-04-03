@@ -12,6 +12,7 @@ const LOGIN_URL = '/login';
 
 const LoginPage = () => {
     const { setAuth } = useAuth();
+
     const handleTelegramAuth = (user) => {
         console.log('Telegram user data:', user);
 
@@ -99,7 +100,7 @@ const LoginPage = () => {
                 />
 
                 <TelegramLoginButton
-                    botName="mytetsst_bot" // Ваш username бота
+                    botName="mybotesgik_bot" // Ваш username бота
                     buttonSize="large"    // large, medium или small
                     onAuth={handleTelegramAuth}
                     className="custom-telegram-button"
