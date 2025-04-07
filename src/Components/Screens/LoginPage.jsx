@@ -39,7 +39,7 @@ const LoginPage = () => {
             navigate("/profile");
         } catch (error) {
             if (error.status == "404")
-                alert("Вы не зарегестрированы")
+                alert("Неправильный логин или пароль")
         }
     };
 
