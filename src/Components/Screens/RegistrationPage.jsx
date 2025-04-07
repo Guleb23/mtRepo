@@ -3,13 +3,14 @@ import CustomBtn from '../CustomBtn'
 import PhoneInput from '../PhoneInput'
 import axsios from '../../api/axsios';
 import { useNavigate } from 'react-router-dom';
-import TelegramLoginButton from '../TelegramLoginButton';
-import axios from 'axios';
-import useAuth from '../../Hooks/useAuth';
+import { FaTelegramPlane } from "react-icons/fa";
+
+
+
 
 const RegistrationPage = () => {
-    const navigate = useNavigate();
-    const { setAuth } = useAuth();
+
+
     const navigation = useNavigate();
 
     const [user, setUser] = useState({
@@ -20,53 +21,37 @@ const RegistrationPage = () => {
         password: "",
         paymentMethodId: 1,
         getDocsSposobId: 1,
+
     });
-
-    const [codeSent, setCodeSent] = useState(false);
-    const [code, setCode] = useState("");
-
-    const sendTelegramCode = async () => {
-        try {
-            const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/send-code", {
-                phone: user.phone
-            });
-            if (response.status === 200) {
-                setCodeSent(true);
-                alert("Код отправлен в Telegram!");
-            }
-        } catch (err) {
-            console.error("Ошибка при отправке кода:", err);
-            alert("Не удалось отправить код. Убедитесь, что вы начали чат с ботом.");
-        }
-    };
-
-    const verifyTelegramCode = async () => {
-        try {
-            const response = await axios.post("https://guleb23-webapplication2-a40c.twc1.net/auth/verify-code", {
-                phone: user.phone,
-                code: code
-            });
-
-            if (response.status === 200) {
-                setAuth({ token: response.data.token, id: response.data.id });
-                localStorage.setItem("token", response.data.token);
-                localStorage.setItem("id", response.data.id);
-                navigate("/profile");
-            }
-        } catch (err) {
-            console.error("Ошибка при проверке кода:", err);
-            alert("Неверный код или ошибка на сервере");
-        }
-    };
-
     const handleClick = async () => {
         if (user.phone.length < 10) {
-            alert("Uncorrect phone");
+            alert("Uncorrect phone")
         } else {
-            sendTelegramCode();
+            await axsios.post("/createUser", user)
+                .then((resp) => {
+                    if (resp.status == "200") {
+                        console.log(resp.data);
+                        const data = {
+                            pass: resp.data.password,
+                            tel: resp.data.phone
+                        };
+                        console.log(data);
+                        navigation("/confirm", { state: { data } });
+                    }
+                })
+                .catch((err) => {
+                    if (err.status == "409") {
+                        alert("Пользователь с таким номером уже зарегистрирован");
+                    }
+                })
         }
-    }
 
+    }
+    const botUsername = "esgikss_bot";
+    const handleClickTg = () => {
+        // Переход к боту
+        window.open(`https://t.me/${botUsername}`, '_blank');
+    };
     return (
         <>
             <PhoneInput
@@ -75,22 +60,17 @@ const RegistrationPage = () => {
                 inpId="userPhone"
                 name="Введите свой номер телефона"
             />
-            {!codeSent ? (
-                <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
-            ) : (
-                <div className="flex flex-col gap-2 w-full">
-                    <input
-                        className="border rounded p-2"
-                        type="text"
-                        placeholder="Введите код из Telegram"
-                        value={code}
-                        onChange={(e) => setCode(e.target.value)}
-                    />
-                    <CustomBtn onClick={verifyTelegramCode} customStyles={`w-full h-10 !bg-[#1A80E5] text-white`} title={`Подтвердить`} />
-                </div>
-            )}
-        </>
-    );
-};
+            <div className='flex flex-1 items-end lg:items-start lg:flex-none gap-2 '>
 
-export default RegistrationPage;
+                <CustomBtn onClick={handleClick} customStyles={`w-full  h-10 !bg-[#1A80E5] text-white`} title={`Регистрация`} />
+            </div>
+            <div className='w-full flex items-center '>
+                <p className='text-[#4F7396] text-[14px] flex-1'>Можете пройти регистрацию через нашего бота в телеграмм!</p>
+                <CustomBtn icon={<FaTelegramPlane />} onClick={handleClickTg} customStyles={`!w-fit h-10 !bg-[#1A80E5] text-white`} title={`Регистрация через телеграмм`} />
+            </div>
+
+        </>
+    )
+}
+
+export default RegistrationPage
