@@ -38,7 +38,8 @@ const LoginPage = () => {
             localStorage.setItem("id", response.data.id);
             navigate("/profile");
         } catch (error) {
-            console.error("Error:", error, " ", phone);
+            if (error.status == "404")
+                alert("Вы не зарегестрированы")
         }
     };
 
