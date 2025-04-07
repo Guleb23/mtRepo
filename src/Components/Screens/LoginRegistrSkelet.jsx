@@ -6,7 +6,7 @@ const LoginRegistrSkelet = ({ children }) => {
     const location = useLocation();
 
     return (
-        <div className='flex flex-col gap-8 pb-36 lg:flex-row h-full  lg:items-center'>
+        <div className='flex flex-col gap-8 pb-36 lg:flex-row h-full overflow-y-auto  lg:items-center'>
             <img loading="lazy" className='w-screen h-48 rounded-2xl object-cover lg:order-2 lg:flex-[1_1_50%] lg:h-full' src='\Images\LoginImage.webp' />
             <div className='h-full flex flex-col order-2 gap-4 lg:order-1 lg:flex-[1_1_50%] lg:h-full lg:justify-center'>
                 <h1 className='font-medium text-2xl  '>
