@@ -63,17 +63,7 @@ const RegistrationPage = () => {
         if (user.phone.length < 10) {
             alert("Uncorrect phone");
         } else {
-            await axsios.post("/createUser", user)
-                .then((resp) => {
-                    if (resp.status === 200) {
-                        sendTelegramCode();
-                    }
-                })
-                .catch((err) => {
-                    if (err.response?.status === 409) {
-                        alert("Пользователь с таким номером уже зарегистрирован");
-                    }
-                })
+            sendTelegramCode();
         }
     }
 
