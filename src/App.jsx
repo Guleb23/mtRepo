@@ -18,6 +18,7 @@ import DocumentsSkelet from './Components/Screens/DocumentsSkelet';
 import CompanyDocuments from './Components/Screens/CompanyDocuments';
 import NoneAutorisation from './Components/Screens/NoneAutorisation';
 import AppSkelet from './Components/Screens/AppSkelet';
+import ManagerPanel from './Components/Screens/ManagerPanel';
 
 function App() {
   const { auth } = useAuth();
@@ -58,6 +59,15 @@ function App() {
           </Route>
 
           <Route path='/aboutObjects' element={<AboutObjects user={token} />} />
+          <Route path='/manager' element={
+            auth?.user?.role === '2' ? (
+              <AppSkelet path={`/manager`} title={`Панель менеджера`}>
+                <ManagerPanel />
+              </AppSkelet>
+            ) : (
+              <Navigate to="/" replace />
+            )
+          } />
         </Routes>
       </div>
       <NavBar />
