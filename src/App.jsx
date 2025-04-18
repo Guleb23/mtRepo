@@ -60,7 +60,7 @@ function App() {
 
           <Route path='/aboutObjects' element={<AboutObjects user={token} />} />
           <Route path='/manager' element={
-            auth?.user?.role === '2' ? (
+            auth?.user?.role == '2' ? (
               <AppSkelet path={`/manager`} title={`Панель менеджера`}>
                 <ManagerPanel />
               </AppSkelet>
