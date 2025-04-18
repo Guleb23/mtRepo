@@ -36,6 +36,7 @@ const LoginPage = () => {
             });
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("id", response.data.id);
+            localStorage.setItem("role", response.data.role);
             navigate("/profile");
         } catch (error) {
             if (error.status == "404")

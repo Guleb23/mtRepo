@@ -7,10 +7,11 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem("token");
         const id = localStorage.getItem("id");
+        const role = localStorage.getItem("role");
 
         if (token && id) {
             // Восстанавливаем данные аутентификации
-            setAuth({ token, id });
+            setAuth({ token, id, role });
         }
     }, []);
     return (
