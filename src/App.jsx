@@ -19,12 +19,17 @@ import CompanyDocuments from './Components/Screens/CompanyDocuments';
 import NoneAutorisation from './Components/Screens/NoneAutorisation';
 import AppSkelet from './Components/Screens/AppSkelet';
 import ManagerPanel from './Components/Screens/ManagerPanel';
+import CustomLoader from './Components/CustomLoader';
 
 function App() {
-  const { auth } = useAuth();
+  const { auth, loading } = useAuth(); // Получаем isLoading
+
+  if (loading) {
+    return <CustomLoader />
+  }
   const token = auth.token;
   return (
-    <section className='w-screen h-screen overflow-x-hidden overflow-y-auto '>
+    <section className='w-screen h-screen overflow-x-hidden overflow-y-auto bg-[#F7FAFC] '>
       <div className=' h-full px-3 md:px-5 pt-12 lg:px-40 '>
         <Routes>
           <Route path='/' element={<Services />} />
@@ -59,15 +64,16 @@ function App() {
           </Route>
 
           <Route path='/aboutObjects' element={<AboutObjects user={token} />} />
-          <Route path='/manager' element={
-            auth?.user?.role == '2' ? (
-              <AppSkelet path={`/manager`} title={`Панель менеджера`}>
+          <Route
+            path='/manager'
+            element={
+              auth?.role === "2" ? (
                 <ManagerPanel />
-              </AppSkelet>
-            ) : (
-              <Navigate to="/" replace />
-            )
-          } />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
         </Routes>
       </div>
       <NavBar />

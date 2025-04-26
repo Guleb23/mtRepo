@@ -3,12 +3,33 @@ import { useParams } from 'react-router-dom';
 import { servicesData } from '../../StaticData/DataFirServices'
 import CustomHeader from '../CustomHeader';
 import CustomBtn from '../CustomBtn';
+import CreateOrderModal from '../CreateOrderModal';
+import axsios from "../../api/axsios"
 
 const ServiceDetails = () => {
 
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [order, setOrder] = useState();
     const { id } = useParams();
     console.log(id);
+
+    const submitOrderToServer = async (orderData, userId) => {
+        try {
+            const response = axsios.post(`https://localhost:7087/api/createOrder/${userId}`, orderData)
+            if (response.ok) {
+                const result = await response.json();
+                console.log("Успешно отправлено:", result);
+                alert("Заказ успешно создан!");
+            } else {
+                console.error("Ошибка при создании заказа");
+                alert("Ошибка при создании заказа");
+            }
+        } catch (error) {
+            console.error("Ошибка сети:", error);
+            alert("Ошибка сети");
+        }
+    };
+
 
 
     const service = servicesData.find((s) => s.id == id);
@@ -42,7 +63,7 @@ const ServiceDetails = () => {
                             {service.longDescrpt}
                         </p>
                     </div>
-                    <CustomBtn customStyles={`w-full`} title={`Заказать услугу`} />
+                    <CustomBtn onClick={() => setIsModalOpen(true)} customStyles={`w-full`} title={`Заказать услугу`} />
                 </div>
                 <img className='object-fill rounded-xl flex-[0_0_40%] ' src={service.image} />
 
@@ -51,6 +72,22 @@ const ServiceDetails = () => {
 
             </div>
 
+            <CreateOrderModal
+                open={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onSubmit={(data) => {
+                    const orderToSend = {
+                        address: data.address,
+                        kadastrNumber: data.kadastrNumber,
+                        typeOfWork: service.title,
+                        price: service.price
+                    };
+                    const userId = localStorage.getItem("id");
+                    setOrder(orderToSend);
+                    submitOrderToServer(orderToSend, userId);
+                    setIsModalOpen(false);
+                }}
+            />
 
         </div>
     )

@@ -6,7 +6,7 @@ import axsios from '../../api/axsios';
 import useAuth from '../../Hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
-const LOGIN_URL = '/login';
+const LOGIN_URL = 'login';
 
 const LoginPage = () => {
     const { setAuth } = useAuth();
@@ -37,7 +37,12 @@ const LoginPage = () => {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("id", response.data.id);
             localStorage.setItem("role", response.data.role);
-            navigate("/profile");
+            if (response.data.role == 2) {
+                navigate("/manager")
+            } else {
+                navigate("/profile");
+            }
+
         } catch (error) {
             if (error.status == "404")
                 alert("Неправильный логин или пароль")

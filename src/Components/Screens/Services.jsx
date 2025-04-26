@@ -6,7 +6,7 @@ import CustomHeader from '../CustomHeader'
 
 const Services = () => {
     return (
-        <section className='flex flex-col gap-4 overflow-x-hidden' >
+        <section className='flex flex-col gap-4 overflow-x-hidden ' >
             <CustomHeader title={`Услуги`} />
             <SearchBar />
             <div className='flex flex-col gap-4 pb-36'>
