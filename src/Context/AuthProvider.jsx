@@ -1,10 +1,12 @@
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({});
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
     useEffect(() => {
         const token = localStorage.getItem("token");
         const id = localStorage.getItem("id");
@@ -14,6 +16,8 @@ export const AuthProvider = ({ children }) => {
             // Восстанавливаем данные аутентификации
             setAuth({ token, id, role });
             setLoading(false);
+        } else {
+            navigate("/login")
         }
     }, []);
     return (

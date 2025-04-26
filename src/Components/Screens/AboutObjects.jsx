@@ -11,7 +11,7 @@ const AboutObjects = ({ user }) => {
         <section className='flex flex-col gap-5 pb-36 h-full'>
             <CustomHeader title={`Ваши обьекты`} />
             <SearchBar />
-            {user ? <IsUser /> : <NoneAutorisation text={`Тут будут ваши объекты над которыми мы ведем работу`} />}
+            {user ? <IsUser /> : <NoneAutorisation text={`Тут будут данные профиля`} />}
         </section>
     )
 }
