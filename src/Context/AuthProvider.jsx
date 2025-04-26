@@ -7,19 +7,22 @@ export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({});
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+
     useEffect(() => {
         const token = localStorage.getItem("token");
         const id = localStorage.getItem("id");
         const role = localStorage.getItem("role");
 
-        if (token && id && id) {
+        if (token && id && role) {
             // Восстанавливаем данные аутентификации
             setAuth({ token, id, role });
-            setLoading(false);
         } else {
-            navigate("/login")
+            setAuth({}); // Clear auth state if no tokens
+            navigate("/login");
         }
-    }, []);
+        setLoading(false); // Always set loading to false after check
+    }, [navigate]); // Add navigate to dependencies
+
     return (
         <AuthContext.Provider value={{ auth, setAuth, loading }}>
             {children}
