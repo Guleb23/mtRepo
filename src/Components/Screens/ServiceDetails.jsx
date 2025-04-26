@@ -1,19 +1,22 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { servicesData } from '../../StaticData/DataFirServices'
 import CustomHeader from '../CustomHeader';
 import CustomBtn from '../CustomBtn';
 import CreateOrderModal from '../CreateOrderModal';
 import axsios from "../../api/axsios"
+import { IoChevronBack } from "react-icons/io5";
 
 const ServiceDetails = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [order, setOrder] = useState();
     const { id } = useParams();
-    console.log(id);
-
+    const navigate = useNavigate();
+    const token = localStorage.getItem("token");
     const submitOrderToServer = async (orderData, userId) => {
+
+
         try {
             const response = axsios.post(`https://localhost:7087/api/createOrder/${userId}`, orderData)
             if (response.ok) {
@@ -40,7 +43,10 @@ const ServiceDetails = () => {
 
     return (
         <div className='pb-36'>
-            <CustomHeader title={`Подробная информация`} />
+            <div className='flex items-center gap-2.5'>
+                <IoChevronBack onClick={() => navigate(-1)} size={25} />
+                <CustomHeader title={`Подробная информация`} />
+            </div>
 
             <div className='flex flex-col gap-4 lg:flex-row md:items-start md:gap-24 relative py-10  '>
                 <div className=' flex flex-col gap-4 order-1 md:flex-1 basic-20'>
@@ -63,7 +69,7 @@ const ServiceDetails = () => {
                             {service.longDescrpt}
                         </p>
                     </div>
-                    <CustomBtn onClick={() => setIsModalOpen(true)} customStyles={`w-full`} title={`Заказать услугу`} />
+                    <CustomBtn onClick={() => token ? setIsModalOpen(true) : alert("Сначала войдите или зарегестрируйтесь")} customStyles={`w-full`} title={`Заказать услугу`} />
                 </div>
                 <img className='object-fill rounded-xl flex-[0_0_40%] ' src={service.image} />
 
