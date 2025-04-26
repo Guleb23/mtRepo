@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }) => {
             setAuth({ token, id, role });
         } else {
             setAuth({}); // Clear auth state if no tokens
-            navigate("/login");
         }
         setLoading(false); // Always set loading to false after check
     }, [navigate]); // Add navigate to dependencies
