@@ -1,12 +1,24 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import NavBarButton from './NavBarButton'
 import { Link, useLocation } from 'react-router-dom'
 import useAuth from '../Hooks/useAuth';
+import CustomLoader from './CustomLoader';
 
 const NavBarItems = () => {
     const location = useLocation();
-    const { auth } = useAuth();
+    const { auth, loading } = useAuth(); // Получаем isLoading
+
+
     const [isManager, setIsManager] = useState(false);
+    useEffect(() => {
+        const role = localStorage.getItem("role");
+        console.log(role);
+        console.log(auth.role);
+
+        if (auth.role == 2 || role == 2) {
+            setIsManager(true);
+        }
+    }, [])
     const navBarItems = [
         {
             title: 'Объекты',
@@ -54,7 +66,9 @@ const NavBarItems = () => {
         iconPath: '../MenuIcons/Profik.svg',
         isActive: location.pathname.startsWith('/profile')
     }
-
+    if (loading) {
+        return <CustomLoader />
+    }
 
     return (
         <div className='w-full flex justify-center py-4 gap-10 items-center'>
