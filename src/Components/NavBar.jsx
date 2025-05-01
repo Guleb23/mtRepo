@@ -1,7 +1,9 @@
 import React from 'react'
 import NavBarItems from './NavBarItems'
+import useAuth from '../Hooks/useAuth'
 
 const NavBar = () => {
+
     return (
         <div className='bg-[#F7FAFC] w-full fixed bottom-0 left-0 md:border-t-[#E5E8EB] md:border-2'>
             <nav className=' bg-[#F7FAFC]  flex mx-1 md:mx-5 mb-5  px-10 rounded-lg items-center h-full md:bg-[#F7FAFC]  md:py-5 md:m-0 justify-center'>
