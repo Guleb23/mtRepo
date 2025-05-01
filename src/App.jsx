@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-
+import PrivateRoute from './Components/PrivateRoute'; // <-- добавь импорт
 import './App.css'
 
 import NavBar from './Components/NavBar'
@@ -32,14 +32,9 @@ function App() {
     <section className='w-screen h-screen overflow-x-hidden overflow-y-auto bg-[#F7FAFC] '>
       <div className=' h-full px-3 md:px-5 pt-12 lg:px-40 '>
         <Routes>
+          {/* Открытые маршруты */}
           <Route path='/' element={<Services />} />
           <Route path="/:id" element={<ServiceDetails />} />
-          <Route path='/documents' element={<DocumentsSkelet />}>
-            <Route path='userDocuments' element={<UserDocuments />} />
-            <Route path='companyDocuments' element={<CompanyDocuments />} />
-            <Route path='noneuser' element={<NoneAutorisation text={`Тут будут храниться документы`} />} />
-          </Route>
-
           <Route path='/registration' element={
             <LoginRegistrSkelet>
               <RegistrationPage />
@@ -48,33 +43,54 @@ function App() {
             <LoginRegistrSkelet>
               <ConfirmPassord />
             </LoginRegistrSkelet>} />
-
           <Route path='/login' element={
             <LoginRegistrSkelet>
               <LoginPage />
             </LoginRegistrSkelet>} />
 
-          <Route path='/personalData' element={<AppSkelet path={`/personalData`} title={`Персональные данные`} />}>
+          {/* Доступно только для роли 1 */}
+          <Route path='/documents' element={
+            <PrivateRoute allowedRoles={["1"]}>
+              <DocumentsSkelet />
+            </PrivateRoute>
+          }>
+            <Route path='userDocuments' element={<UserDocuments />} />
+            <Route path='companyDocuments' element={<CompanyDocuments />} />
+            <Route path='noneuser' element={<NoneAutorisation text={`Тут будут храниться документы`} />} />
+          </Route>
+
+          <Route path='/personalData' element={
+            <PrivateRoute allowedRoles={["1"]}>
+              <AppSkelet path={`/personalData`} title={`Персональные данные`} />
+            </PrivateRoute>
+          }>
             <Route index element={<PersonalData user={token} />} />
             <Route path='noneuser' element={<NoneAutorisation text={`Тут будут ваши персональные данные`} />} />
           </Route>
-          <Route path='/profile' element={<AppSkelet path={`/profile`} title={`Профиль`} />}>
+
+          <Route path='/profile' element={
+            <PrivateRoute allowedRoles={["1"]}>
+              <AppSkelet path={`/profile`} title={`Профиль`} />
+            </PrivateRoute>
+          }>
             <Route index element={<Profile user={token} />} />
             <Route path='noneuser' element={<NoneAutorisation text={`Тут будут данные вашего профиля`} />} />
           </Route>
 
-          <Route path='/aboutObjects' element={<AboutObjects user={token} />} />
-          <Route
-            path='/manager'
-            element={
-              auth?.role === "2" ? (
-                <ManagerPanel />
-              ) : (
-                <Navigate to="/" replace />
-              )
-            }
-          />
+          <Route path='/aboutObjects' element={
+            <PrivateRoute allowedRoles={["1"]}>
+              <AboutObjects user={token} />
+            </PrivateRoute>
+          } />
+
+          {/* Только для роли 2 */}
+          <Route path='/manager' element={
+            <PrivateRoute allowedRoles={["2"]}>
+              <ManagerPanel />
+            </PrivateRoute>
+          } />
         </Routes>
+
       </div>
       <NavBar />
     </section>

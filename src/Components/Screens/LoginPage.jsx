@@ -32,20 +32,24 @@ const LoginPage = () => {
 
             setAuth({
                 token: response.data.token,
-                id: response.data.id
+                id: response.data.id,
+                role: response.data.role
             });
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("id", response.data.id);
             localStorage.setItem("role", response.data.role);
-            if (response.data.role == 2) {
+            if (response.data.role == "2") {
                 navigate("/manager")
             } else {
                 navigate("/profile");
             }
 
         } catch (error) {
-            if (error.status == "404")
-                alert("Неправильный логин или пароль")
+            if (error.response?.status === 404) {
+                alert("Неправильный логин или пароль");
+            } else {
+                alert("Ошибка входа. Повторите попытку позже.");
+            }
         }
     };
 
