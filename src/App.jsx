@@ -67,7 +67,7 @@ function App() {
           <Route
             path='/manager'
             element={
-              auth?.role === "2" ? (
+              auth?.role === 2 ? (
                 <ManagerPanel />
               ) : (
                 <Navigate to="/" replace />

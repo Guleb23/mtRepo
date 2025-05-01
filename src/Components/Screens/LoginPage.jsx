@@ -32,8 +32,8 @@ const LoginPage = () => {
 
             setAuth({
                 token: response.data.token,
-                id: response.data.id,
-                role: response.data.role
+                id: Number(response.data.id),
+                role: Number(response.data.role) // ✅ теперь это число
             });
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("id", response.data.id);
