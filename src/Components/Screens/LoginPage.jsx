@@ -38,7 +38,7 @@ const LoginPage = () => {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("id", response.data.id);
             localStorage.setItem("role", response.data.role);
-            if (response.data.role == "2") {
+            if (response.data.role == 2) {
                 navigate("/manager")
             } else {
                 navigate("/profile");
